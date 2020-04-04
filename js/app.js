@@ -3,7 +3,7 @@ var container;
 var scene;
 var camera;
 var renderer;
-
+var controls;
 var mesh;
 ///// Main function 
 function Main() {
@@ -15,6 +15,7 @@ function Main() {
   createCamera();
   createMeshes();
   createLights();
+  createControls();
   createRenderer();
   renderLoop();
   
@@ -48,9 +49,7 @@ function createLights() {
 
 function update(deltaTime) {
 
-  mesh.rotation.z += deltaTime;
-  mesh.rotation.x += deltaTime;
-  mesh.rotation.y += deltaTime;
+
 }
 
 function render() {
@@ -108,7 +107,11 @@ function createCamera() {
 
   // every object is initially created at ( 0, 0, 0 )
   // we'll move the camera back a bit so that we can view the scene
-  camera.position.set(0, 0, 10);
+  camera.position.set(-4, 4, 10);
+}
+
+function createControls() {
+  controls = new THREE.OrbitControls(camera, container);
 }
 
 function createRenderer() {
