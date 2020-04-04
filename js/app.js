@@ -1,8 +1,8 @@
 ///// global
-const container;
-const scene;
-const camera;
-const renderer;
+var container;
+var scene;
+var camera;
+var renderer;
 ///// Main function 
 function Main() {
 
@@ -27,6 +27,8 @@ function Main() {
   // add the automatically created <canvas> element to the page
   container.appendChild(renderer.domElement);
   
+  // render, or 'create a still image', of the scene
+  renderer.render(scene, camera);
 
 } onload = Main;
 
