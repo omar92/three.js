@@ -19,9 +19,30 @@ function Main() {
   // add the mesh to the scene
   scene.add(mesh);
 
-  // render, or 'create a still image', of the scene
-  renderer.render(scene, camera);
 
+  
+  var then = 0;
+  // Draw the scene repeatedly
+  function render(now) {
+    //calculate deltaTime
+    now *= 0.001;  // convert to seconds
+    const deltaTime = now - then;
+    then = now;
+
+    mesh.rotation.z += 0.01;
+    mesh.rotation.x += 0.01;
+    mesh.rotation.y += 0.01;
+
+    // render, or 'create a still image', of the scene
+    // this will create one still image / frame each time the animate
+    // function calls itself
+    renderer.render(scene, camera);
+
+    // call animate recursively
+    requestAnimationFrame(render);
+  }
+  requestAnimationFrame(render);
+  
 } onload = Main;
 
 function createCube() {
