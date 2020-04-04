@@ -22,23 +22,23 @@ function Main() {
   scene.add(mesh);
 
 
+  // Create a directional light
+  const light = new THREE.DirectionalLight(0xffffff, 5.0);
+
+  // move the light back and up a bit
+  light.position.set(10, 10, 10);
+
+  // remember to add the light to the scene
+  scene.add(light);
 
   animate();
-  
 } onload = Main;
-
-var r = 0;
-var incrementDir = 1;
 
 function update(deltaTime) {
   
   mesh.rotation.z += deltaTime;
   mesh.rotation.x += deltaTime;
   mesh.rotation.y += deltaTime;
-
-  r += deltaTime * incrementDir ;
-  if (r >= 1 || r <= 0) { incrementDir*=-1}
-  mesh.material.color = new THREE.Color(r, 0, 0);
 }
 
 
