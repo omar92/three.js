@@ -2,7 +2,7 @@
 const container;
 const scene;
 const camera;
-
+const renderer;
 ///// Main function 
 function Main() {
 
@@ -20,6 +20,13 @@ function Main() {
   camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
 
  
+  // create the renderer
+  renderer = new THREE.WebGLRenderer();
+  renderer.setSize(container.clientWidth, container.clientHeight);
+  renderer.setPixelRatio(window.devicePixelRatio);
+  // add the automatically created <canvas> element to the page
+  container.appendChild(renderer.domElement);
+  
 
 } onload = Main;
 
