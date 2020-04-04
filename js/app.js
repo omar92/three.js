@@ -13,44 +13,34 @@ function Main() {
 
   createScene();
   createCamera();
+  createMeshes();
+  createLights();
   createRenderer();
+  renderLoop();
   
-  // create a texture loader.
-  const texture = createTexture('textures/uv_test_bw.png');
+} onload = Main;
 
+
+function createMeshes() {
+  const texture = createTexture('textures/uv_test_bw.png');
   // create a geometry
   mesh = createCube();
   mesh.material.map = texture;
   mesh.scale.set(2, 2, 2);
   // add the mesh to the scene
   scene.add(mesh);
+}
 
-
-  // Create a directional light
+function createLights() {
   const light = new THREE.DirectionalLight(0xffffff, 5.0);
-
   // move the light back and up a bit
   light.position.set(10, 10, 10);
-
   // remember to add the light to the scene
   scene.add(light);
-
-  renderLoop();
-  
-} onload = Main;
-
-function createTexture(src) {
-  const textureLoader = new THREE.TextureLoader();
-  const texture = textureLoader.load(src);
-  // set the "color space" of the texture
-  texture.encoding = THREE.sRGBEncoding;
-  // reduce blurring at glancing angles
-  texture.anisotropy = 16;
-  return texture;
 }
 
 function update(deltaTime) {
-  
+
   mesh.rotation.z += deltaTime;
   mesh.rotation.x += deltaTime;
   mesh.rotation.y += deltaTime;
@@ -59,6 +49,7 @@ function update(deltaTime) {
 function render() {
   renderer.render(scene, camera);
 }
+
 
 function renderLoop() {
   var then = 0;
@@ -74,6 +65,15 @@ function renderLoop() {
   });
 }
 
+function createTexture(src) {
+  const textureLoader = new THREE.TextureLoader();
+  const texture = textureLoader.load(src);
+  // set the "color space" of the texture
+  texture.encoding = THREE.sRGBEncoding;
+  // reduce blurring at glancing angles
+  texture.anisotropy = 16;
+  return texture;
+}
 
 
 function createCube() {
