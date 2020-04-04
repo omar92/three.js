@@ -32,11 +32,18 @@ function createMeshes() {
 }
 
 function createLights() {
+
+  const ambientLight = new THREE.HemisphereLight(
+    0xddeeff, // sky color
+    0x202020, // ground color
+    5, // intensity
+  );
+
   const light = new THREE.DirectionalLight(0xffffff, 5.0);
   // move the light back and up a bit
   light.position.set(10, 10, 10);
   // remember to add the light to the scene
-  scene.add(light);
+  scene.add(ambientLight,light);
 }
 
 function update(deltaTime) {
@@ -108,6 +115,13 @@ function createRenderer() {
   renderer = new THREE.WebGLRenderer({ antialias: true });
   renderer.setSize(container.clientWidth, container.clientHeight);
   renderer.setPixelRatio(window.devicePixelRatio);
+
+
+  renderer.gammaFactor = 2.2;
+  renderer.gammaOutput = true;
+
+  renderer.physicallyCorrectLights = true;
+
   // add the automatically created <canvas> element to the page
   container.appendChild(renderer.domElement);
 }
