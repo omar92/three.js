@@ -9,17 +9,23 @@ function Main() {
   // Get a reference to the container element that will hold our scene
   container = document.querySelector( '#scene-container' );
   // create a Scene
-  scene = new THREE.Scene();
+  createScene();
 
-  CreateCamera();
-  CreateRenderer();
+  createCamera();
+  createRenderer();
   
   // render, or 'create a still image', of the scene
   renderer.render(scene, camera);
 
 } onload = Main;
 
-function CreateCamera() {
+function createScene() {
+  scene = new THREE.Scene();
+  // Set the background color
+  scene.background = new THREE.Color('skyblue');
+}
+
+function createCamera() {
   const fov = 35; // AKA Field of View
   const aspect = container.clientWidth / container.clientHeight;
   const near = 0.1; // the near clipping plane
@@ -27,7 +33,7 @@ function CreateCamera() {
   camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
 }
 
-function CreateRenderer() {
+function createRenderer() {
   renderer = new THREE.WebGLRenderer();
   renderer.setSize(container.clientWidth, container.clientHeight);
   renderer.setPixelRatio(window.devicePixelRatio);
