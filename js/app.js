@@ -31,7 +31,8 @@ function Main() {
   // remember to add the light to the scene
   scene.add(light);
 
-  animate();
+  renderLoop();
+  
 } onload = Main;
 
 function update(deltaTime) {
@@ -41,25 +42,25 @@ function update(deltaTime) {
   mesh.rotation.y += deltaTime;
 }
 
+function render() {
+  renderer.render(scene, camera);
+}
 
-function animate() {
+function renderLoop() {
   var then = 0;
   // Draw the scene repeatedly
-  function render(now) {
+  renderer.setAnimationLoop((now) => {
     //calculate deltaTime
     now *= 0.001; // convert to seconds
     const deltaTime = now - then;
     then = now;
+
     update(deltaTime);
-    // render, or 'create a still image', of the scene
-    // this will create one still image / frame each time the animate
-    // function calls itself
-    renderer.render(scene, camera);
-    // call animate recursively
-    requestAnimationFrame(render);
-  }
-  requestAnimationFrame(render);
+    render();
+  });
 }
+
+
 
 function createCube() {
   const geometry = new THREE.BoxBufferGeometry(1, 1, 1);
