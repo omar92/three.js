@@ -3,6 +3,8 @@ var container;
 var scene;
 var camera;
 var renderer;
+
+var mesh;
 ///// Main function 
 function Main() {
 
@@ -14,36 +16,42 @@ function Main() {
   createRenderer();
   
   // create a geometry
-  const mesh = createCube();
+  mesh = createCube();
 
   // add the mesh to the scene
   scene.add(mesh);
 
 
+
+  animate();
   
+} onload = Main;
+
+function update(deltaTime) {
+  mesh.rotation.z += deltaTime;
+  mesh.rotation.x += deltaTime;
+  mesh.rotation.y += deltaTime;
+}
+
+
+function animate() {
   var then = 0;
   // Draw the scene repeatedly
   function render(now) {
     //calculate deltaTime
-    now *= 0.001;  // convert to seconds
+    now *= 0.001; // convert to seconds
     const deltaTime = now - then;
     then = now;
-
-    mesh.rotation.z += 0.01;
-    mesh.rotation.x += 0.01;
-    mesh.rotation.y += 0.01;
-
+    update(deltaTime);
     // render, or 'create a still image', of the scene
     // this will create one still image / frame each time the animate
     // function calls itself
     renderer.render(scene, camera);
-
     // call animate recursively
     requestAnimationFrame(render);
   }
   requestAnimationFrame(render);
-  
-} onload = Main;
+}
 
 function createCube() {
   const geometry = new THREE.BoxBufferGeometry(1, 1, 1);
