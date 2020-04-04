@@ -17,7 +17,7 @@ function Main() {
   
   // create a geometry
   mesh = createCube();
-
+  mesh.material.color = new THREE.Color("green");
   // add the mesh to the scene
   scene.add(mesh);
 
