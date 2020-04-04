@@ -15,9 +15,13 @@ function Main() {
   createCamera();
   createRenderer();
   
+  // create a texture loader.
+  const texture = createTexture('textures/uv_test_bw.png');
+
   // create a geometry
   mesh = createCube();
-  mesh.material.color = new THREE.Color("green");
+  mesh.material.map = texture;
+  mesh.scale.set(2, 2, 2);
   // add the mesh to the scene
   scene.add(mesh);
 
@@ -34,6 +38,16 @@ function Main() {
   renderLoop();
   
 } onload = Main;
+
+function createTexture(src) {
+  const textureLoader = new THREE.TextureLoader();
+  const texture = textureLoader.load(src);
+  // set the "color space" of the texture
+  texture.encoding = THREE.sRGBEncoding;
+  // reduce blurring at glancing angles
+  texture.anisotropy = 16;
+  return texture;
+}
 
 function update(deltaTime) {
   
