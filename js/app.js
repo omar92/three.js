@@ -1,3 +1,9 @@
+// Import three
+import * as THREE from 'https://unpkg.com/three/build/three.module.js';
+// Import the default VRButton
+import { VRButton } from 'https://unpkg.com/three/examples/jsm/webxr/VRButton.js';
+
+
 ///// global
 var container;
 var scene;
@@ -46,9 +52,10 @@ function createLights() {
   // remember to add the light to the scene
   scene.add(ambientLight,light);
 }
-
+var x = 0;
 function update(deltaTime) {
-
+  x += deltaTime;
+  mesh.rotation.set(x, x, x);
 
 }
 
@@ -107,11 +114,11 @@ function createCamera() {
 
   // every object is initially created at ( 0, 0, 0 )
   // we'll move the camera back a bit so that we can view the scene
-  camera.position.set(-4, 4, 10);
+  camera.position.set(0, 0, 10);
 }
 
 function createControls() {
-  controls = new THREE.OrbitControls(camera, container);
+ // controls = new THREE.OrbitControls(camera, container);
 }
 
 function createRenderer() {
@@ -125,9 +132,20 @@ function createRenderer() {
 
   renderer.physicallyCorrectLights = true;
 
+  // Turn on VR support
+  renderer.vr.enabled = true;
+
   // add the automatically created <canvas> element to the page
   container.appendChild(renderer.domElement);
+  // Add a button to enter/exit vr to the page
+  container.appendChild(VRButton.createButton(renderer));
 }
 
+// Handle browser resize
+window.addEventListener('resize', onWindowResize, false);
 
-
+function onWindowResize() {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+}
