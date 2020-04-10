@@ -1,19 +1,41 @@
-<!DOCTYPE html>
 <html>
-	<head>
-		<title>three.js i40</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta charset="UTF-8" />
-		<link href="styles/main.css" rel="stylesheet" type="text/css">
-		<script src="js/vendor/three/three.js"></script>
-		<script src="js/vendor/three/OrbitControls.js"></script> <!--  <<<<<<<<<<<<< -->
-	</head>
 
-	<body>
-		<div id="scene-container">
-			<!-- This div will hold our scene-->
-		</div>
-		<script type="module" src="js/app.js"></script>
-	</body>
+<head>
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-particle-system-component@1.0.x/dist/aframe-particle-system-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-charts-component/dist/aframe-charts-component.min.js"></script>
+    <script src="zframeTest.js"></script>
+
+</head>
+
+<body>
+    <a-scene>
+
+        <!-- Particle system uses 'default' preset, setting custom colors. -->
+        <a-entity position="0 2.25 -15" particle-system="color: #EF0000,#44CC00"></a-entity>
+
+        <a-box id="box" position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9" rotor=" rotationSpeed:5"></a-box>
+
+        <a-entity id="color" geometry="primitive: box; width: 1" material="color: red"
+            position="-1 1 0" rotation="0 0 0"></a-entity>
+
+        <a-asset >
+            <a-asset-item id="data" src='[{"x": 1, "y": 8, "z": 0, "size": 1, "color": "#ff0000"},
+                            {"x": -2, "y": 3, "z": 1, "size": 1.5, "color": "#00ff00"},
+                            {"x": -1, "y": 3, "z": 2, "size": 1, "color": "#0000ff"},
+                            {"x": 2, "y": 7, "z": 7, "size": 1.5, "color": "#0000ff"},
+                            {"x": 1, "y": 6, "z": 3, "size": 1, "color": "#4CC3D9"}]'>
+            </a-asset-item>
+        </a-asset>
+        <a-entity charts="type: bar; dataPoints: #data; axis_length: 12" position="0 2.25 -15"></a-entity>
+
+        <a-sphere position="0 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
+        <a-cylinder position="1 0.75 -3" radius="0.5" height="1.5" color="#FFC65D" rotor=" rotationSpeed:2">
+        </a-cylinder>
+        <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
+        <a-sky color="#000"></a-sky>
+    </a-scene>
+
+</body>
 
 </html>
